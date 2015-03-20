@@ -8,3 +8,17 @@
             %td
                 %a.btn.btn-default.pull-right{:style=>"margin-right: 20px; margin-bottom: 20px", :href => "/spectra/library/#{library.id}"} View Library
             %td{:style=>"vertical-align:middle"}= library.name
+
+            
+%form{:action => "/spectra/querysequence", :method => "get"}
+    .form-group
+        %label{:for => "querysequence"} Query Sequence
+        %input.form-control{:type => "text", :name => "querysequence", :class => "text"}
+    %input.btn.btn-default{:type => "submit"}
+    
+    
+%form{:action => "/spectra/querypeptide", :method => "get"}
+    .form-group
+        %label{:for => "querypeptide"} Query Peptide with Mods
+        %input.form-control{:type => "text", :name => "querypeptide", :class => "text"}
+    %input.btn.btn-default{:type => "submit"}

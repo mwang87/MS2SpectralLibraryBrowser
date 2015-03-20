@@ -66,7 +66,7 @@ get '/spectrum/:id' do
     haml :spectrum
 end
 
-get '/spectra/sequence/:querysequence' do
+get '/spectra/querysequence' do
     query_peptide = params[:querysequence]
     
     page_number = 1
@@ -90,7 +90,7 @@ get '/spectra/sequence/:querysequence' do
     haml :spectra
 end
 
-get '/spectra/peptide/:querypeptide' do
+get '/spectra/querypeptide' do
     query_peptide = params[:querypeptide]
     
     page_number = 1

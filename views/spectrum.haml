@@ -1,4 +1,75 @@
+
+%script{:src=>"/lorikeet/js/jquery.flot.js"}
+%script{:src=>"/lorikeet/js/jquery.flot.selection.js"}
+%script{:src=>"/lorikeet/js/specview.js"}
+%script{:src=>"/lorikeet/js/peptide.js"}
+%script{:src=>"/lorikeet/js/aminoacid.js"}
+%script{:src=>"/lorikeet/js/ion.js"}
+
+%link{:href=>"/lorikeet/css/lorikeet.css", :rel=>"stylesheet"}
+
+%div#lorikeetpanel
+
 :javascript
+    spectrum_object = #{@library_spectrum.to_json}
     $(document).ready( function() {
-      alert(#{@library_spectrum.id})
+        
+        
+        modification_struct = get_peptide_modification_list_specnets_format(spectrum_object.peptide)
+        
+        stripped_peptide = modification_struct.render_peptide
+        all_modifications = modification_struct.all_modifications
+        nterm_mod_mass = modification_struct.nterm_mod_mass
+        
+        
+        
+        $("#lorikeetpanel").specview( {
+            sequence: stripped_peptide, 
+            peaks: JSON.parse(spectrum_object.peaks),
+            labelImmoniumIons: false,
+            width:500,
+            height:500,
+            showOptionsTable:true,
+            showIonTable:true,
+            showSequenceInfo:true,
+            variableMods: all_modifications,
+            ntermMod: nterm_mod_mass
+        })
+        
     } );
+    
+    
+    function get_peptide_modification_list_specnets_format(peptide){
+        return_value = new Object()
+        
+        render_peptide = ""
+        if(peptide != null){
+            if(peptide.length > 5){
+                //Cleaning up Peptide
+                render_peptide = peptide
+                if(peptide[1] == '.' && peptide[peptide.length - 2] == '.'){
+                    render_peptide = peptide.substring(2, peptide.length - 2);
+                }
+            }
+        }
+        
+        //Getting the mods from the specnets string
+        //count number of mods
+        number_of_mods = (render_peptide.match(/\(/g) || []).length;
+        all_modifications = []
+        for(i = 0; i < number_of_mods; i++){
+            mod_start = render_peptide.indexOf("(")
+            mod_end = render_peptide.indexOf(")")
+            mod_mass_start = render_peptide.indexOf(",")
+            mod_aminoacid = render_peptide[mod_start + 1]
+            mod_mass = parseFloat(render_peptide.slice(mod_mass_start + 1, mod_end))
+            all_modifications.push({index:mod_start+1, modMass:mod_mass, aminoAcid: mod_aminoacid});
+            render_peptide = render_peptide.slice(0, mod_start) + mod_aminoacid + render_peptide.slice(mod_end + 1)
+        }
+        
+        return_value.render_peptide = render_peptide
+        return_value.all_modifications = all_modifications
+        
+        return return_value
+    }
+    
