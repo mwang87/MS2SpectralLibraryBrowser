@@ -41,6 +41,49 @@ get '/spectrum/:id' do
     @library_spectrum.to_json
 end
 
-get '/spectra/:querypeptide' do
+get '/spectra/sequence/:querysequence' do
+    query_peptide = params[:querysequence]
+    
+    page_number = 1
+    if params[:page] != nil
+        page_number = params[:page].to_i
+    end
+    
+    
+    @library_spectra = Spectrum.all(:offset => (page_number - 1) * PAGINATION_SIZE, :limit => PAGINATION_SIZE, :unmodifiedpeptide => query_peptide)
+    
+    
+    #Determining next and prev page
+    if page_number == 1
+        @next_page = page_number + 1
+        @previous_page = nil
+    else
+        @next_page = page_number + 1
+        @previous_page = page_number - 1
+    end
+    
+    haml :spectra
+end
+
+get '/spectra/peptide/:querypeptide' do
+    query_peptide = params[:querypeptide]
+    
+    page_number = 1
+    if params[:page] != nil
+        page_number = params[:page].to_i
+    end
+    
+    @library_spectra = Spectrum.all(:offset => (page_number - 1) * PAGINATION_SIZE, :limit => PAGINATION_SIZE, :peptide => query_peptide)
+    
+    #Determining next and prev page
+    if page_number == 1
+        @next_page = page_number + 1
+        @previous_page = nil
+    else
+        @next_page = page_number + 1
+        @previous_page = page_number - 1
+    end
+    
+    haml :spectra
     
 end

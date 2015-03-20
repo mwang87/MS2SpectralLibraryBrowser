@@ -25,7 +25,7 @@ def parse_mgf_library(library_name)
         
         if line.include? "="
             field = line.split("=")[0]
-            value = line.split("=")[1]
+            value = line.split("=")[1].rstrip
             
             if field == "CHARGE"
                 spectra_object.charge = Integer(value.gsub(/[+]/,''))
