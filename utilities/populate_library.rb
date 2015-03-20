@@ -43,6 +43,10 @@ def parse_mgf_library(library_name, library_db_name)
             if field == "PRECURSOR"
                 spectra_object.precursor = Float(value)
             end
+            
+            if field == "PEPMASS"
+                spectra_object.precursor = Float(value)
+            end
         else
             if line.length > 5
                 #these are probably peaks

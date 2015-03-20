@@ -45,6 +45,7 @@ get '/spectra/library/:libraryid' do
     
     library_db = Library.first(params[:libraryname])
     
+    
     @library_spectra = library_db.spectrum.all(:offset => (page_number - 1) * PAGINATION_SIZE , :limit => PAGINATION_SIZE)
     
     #Determining next and prev page
@@ -56,6 +57,7 @@ get '/spectra/library/:libraryid' do
         @previous_page = page_number - 1
     end
     
+    @request_path = request.path
     haml :spectra
 end
 
@@ -87,6 +89,7 @@ get '/spectra/querysequence' do
         @previous_page = page_number - 1
     end
     
+    @request_path = request.path
     haml :spectra
 end
 
@@ -109,5 +112,6 @@ get '/spectra/querypeptide' do
         @previous_page = page_number - 1
     end
     
+    @request_path = request.path
     haml :spectra
 end
