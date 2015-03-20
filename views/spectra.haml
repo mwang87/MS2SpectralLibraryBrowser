@@ -1,0 +1,32 @@
+%script{:src=>"/js/jquery-1.11.0.js"}
+%script{:src=>"/js/jquery.tablesorter.js"}
+%script{:src=>"/js/jquery-ui-1.10.4.custom.min.js"}
+%script{:src=>"/js/bootstrap.js"}
+
+%link{:href=>"/css/ui-lightness/jquery-ui-1.10.4.custom.min.css", :rel=>"stylesheet"}
+%link{:href=>"/css/bootstrap.css", :rel=>"stylesheet"}
+
+- if @next_page != nil
+    %a.btn.btn-default.pull-right{:style=>"margin-right: 20px; margin-bottom: 20px", :href => "/spectra?page=#{@next_page}"} Next Page
+- if @previous_page != nil
+    %a.btn.btn-default.pull-right{:style=>"margin-right: 10px; margin-bottom: 20px", :href => "/spectra?page=#{@previous_page}"} Prev Page
+
+
+%table.table.table-striped.table-condensed.tablesorter
+    %thead
+        %tr
+            %th
+            %th Sequence
+            %th Full Pep
+            %th Charge
+            %th MZ
+    - @library_spectra.each do |spectrum|
+        %tr
+            %td
+                %a.btn.btn-default.pull-right{:style=>"margin-right: 20px; margin-bottom: 20px", :href => "/spectrum/#{spectrum.id}"} View
+            %td{:style=>"vertical-align:middle"}= spectrum.unmodifiedpeptide
+            %td{:style=>"vertical-align:middle"}= spectrum.peptide
+            %td{:style=>"vertical-align:middle"}= spectrum.charge
+            %td{:style=>"vertical-align:middle"}= spectrum.precursor
+
+            

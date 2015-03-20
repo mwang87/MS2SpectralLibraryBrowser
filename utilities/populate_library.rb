@@ -4,7 +4,7 @@ require 'json'
 require './settings'
 require './models'
 
-
+#Parses an MGF spectral library. See Ming about this stuff.
 def parse_mgf_library(library_name)
     spectra_object = nil
     peaks_list = []
@@ -28,12 +28,14 @@ def parse_mgf_library(library_name)
             value = line.split("=")[1]
             
             if field == "CHARGE"
-                spectra_object.charge = Integer(value.gsub!('+',' '))
+                spectra_object.charge = Integer(value.gsub(/[+]/,''))
             end
             
             if field == "SEQ"
                 spectra_object.peptide = value
+                spectra_object.unmodifiedpeptide = value.gsub(/[().+-,0-9]+/,'')
             end
+            
             
             if field == "PRECURSOR"
                 spectra_object.precursor = Float(value)

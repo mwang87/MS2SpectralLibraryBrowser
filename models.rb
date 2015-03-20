@@ -6,11 +6,12 @@ DataMapper::Property::String.length(255)
 
 class Spectrum
     include DataMapper::Resource
-    property :id,               Serial
-    property :peptide,          String
-    property :charge,           Integer
-    property :precursor,        Float
-    property :peaks,            Text
+    property :id,                       Serial
+    property :unmodifiedpeptide,        String
+    property :peptide,                  String
+    property :charge,                   Integer
+    property :precursor,                Float
+    property :peaks,                    Text
 end
 
 
