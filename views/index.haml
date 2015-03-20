@@ -3,11 +3,13 @@
         %tr
             %th
             %th Library name
+            %th #Spectra
     - @libraries.each do |library|
         %tr
             %td
                 %a.btn.btn-default.pull-right{:style=>"margin-right: 20px; margin-bottom: 20px", :href => "/spectra/library/#{library.id}"} View Library
             %td{:style=>"vertical-align:middle"}= library.name
+            %td{:style=>"vertical-align:middle"}= Spectrum.count(:library => library)
 
             
 %form{:action => "/spectra/querysequence", :method => "get"}
