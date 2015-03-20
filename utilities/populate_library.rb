@@ -5,9 +5,11 @@ require './settings'
 require './models'
 
 #Parses an MGF spectral library. See Ming about this stuff.
-def parse_mgf_library(library_name)
+def parse_mgf_library(library_name, library_db_name)
     spectra_object = nil
     peaks_list = []
+    
+    library_db = Library.first_or_create(:name => library_db_name)
     
     File.open(library_name, "r").each_line do |line|
         if line.include? "BEGIN IONS"
@@ -19,6 +21,7 @@ def parse_mgf_library(library_name)
         if line.include? "END IONS"
             puts "SAVING " + spectra_object.peptide
             spectra_object.peaks = peaks_list.to_json
+            spectra_object.library = library_db
             spectra_object.save
             next
         end
@@ -53,7 +56,12 @@ def parse_mgf_library(library_name)
 end
 
 
+def create_library_db_name(library_db_name)
+    Library.first_or_create(:name => library_db_name)
+end
 
 puts ARGV[0]
+puts ARGV[1]
 
-parse_mgf_library(ARGV[0])
+create_library_db_name(ARGV[1])
+parse_mgf_library(ARGV[0], ARGV[1])

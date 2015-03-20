@@ -12,8 +12,9 @@ class Sinatra::Application < Sinatra::Base
 end
 
 get '/' do
-    @library_spectra = Spectrum.all(:offset => 0, :limit => 10)
-    @library_spectra.to_json
+    @libraries = Library.all
+    
+    haml :index
 end
 
 
@@ -36,9 +37,33 @@ get '/spectra' do
     haml :spectra
 end
 
+get '/spectra/library/:libraryid' do
+    page_number = 1
+    if params[:page] != nil
+        page_number = params[:page].to_i
+    end
+    
+    library_db = Library.first(params[:libraryname])
+    
+    @library_spectra = library_db.spectrum.all(:offset => (page_number - 1) * PAGINATION_SIZE , :limit => PAGINATION_SIZE)
+    
+    #Determining next and prev page
+    if page_number == 1
+        @next_page = page_number + 1
+        @previous_page = nil
+    else
+        @next_page = page_number + 1
+        @previous_page = page_number - 1
+    end
+    
+    haml :spectra
+end
+
+
 get '/spectrum/:id' do
     @library_spectrum = Spectrum.get(params[:id])
-    @library_spectrum.to_json
+    
+    haml :spectrum
 end
 
 get '/spectra/sequence/:querysequence' do
@@ -85,5 +110,4 @@ get '/spectra/peptide/:querypeptide' do
     end
     
     haml :spectra
-    
 end
