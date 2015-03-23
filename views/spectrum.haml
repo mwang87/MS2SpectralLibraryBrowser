@@ -8,6 +8,27 @@
 
 %link{:href=>"/lorikeet/css/lorikeet.css", :rel=>"stylesheet"}
 
+%div#spectruminformation
+    %table.table.table-striped.table-condensed.tablesorter
+        %tr
+            %td{:style=>"vertical-align:middle"}= "UnmodifiedPeptide"
+            %td{:style=>"vertical-align:middle"}= @library_spectrum.unmodifiedpeptide
+        %tr
+            %td{:style=>"vertical-align:middle"}= "Peptide"
+            %td{:style=>"vertical-align:middle"}= @library_spectrum.peptide
+        %tr
+            %td{:style=>"vertical-align:middle"}= "Charge"
+            %td{:style=>"vertical-align:middle"}= @library_spectrum.charge
+        %tr
+            %td{:style=>"vertical-align:middle"}= "MZ"
+            %td{:style=>"vertical-align:middle"}= @library_spectrum.precursor
+        %tr
+            %td{:style=>"vertical-align:middle"}= "Organism"
+            %td{:style=>"vertical-align:middle"}= @library_spectrum.library.name
+    
+        
+
+
 %div#lorikeetpanel
 
 :javascript
