@@ -4,6 +4,8 @@
     %a.btn.btn-default.pull-right{:style=>"margin-right: 10px; margin-bottom: 20px", :href => "#{@request_path}?#{@param_string}&page=#{@previous_page}"} Prev Page
 
 
+= @display_string
+
 %table.table.table-striped.table-condensed.tablesorter
     %thead
         %tr
@@ -23,3 +25,8 @@
             %td{:style=>"vertical-align:middle"}= spectrum.library.name
 
                 
+                
+- if @next_page != nil
+    %a.btn.btn-default.pull-right{:style=>"margin-right: 20px; margin-bottom: 20px", :href => "#{@request_path}?#{@param_string}&page=#{@next_page}"} Next Page
+- if @previous_page != nil
+    %a.btn.btn-default.pull-right{:style=>"margin-right: 10px; margin-bottom: 20px", :href => "#{@request_path}?#{@param_string}&page=#{@previous_page}"} Prev Page

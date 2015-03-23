@@ -18,26 +18,6 @@ get '/' do
 end
 
 
-get '/spectra' do
-    page_number = 1
-    if params[:page] != nil
-        page_number = params[:page].to_i
-    end
-    @library_spectra = Spectrum.all(:offset => (page_number - 1) * PAGINATION_SIZE , :limit => PAGINATION_SIZE)
-    
-    #Determining next and prev page
-    if page_number == 1
-        @next_page = page_number + 1
-        @previous_page = nil
-    else
-        @next_page = page_number + 1
-        @previous_page = page_number - 1
-    end
-    
-    @param_string = ""
-    haml :spectra
-end
-
 get '/spectra/library/:libraryid' do
     page_number = 1
     if params[:page] != nil
@@ -60,6 +40,9 @@ get '/spectra/library/:libraryid' do
     
     @request_path = request.path
     @param_string = ""
+    
+    @display_string = "Library View: " + library_db.name
+    
     haml :spectra
 end
 
@@ -93,6 +76,9 @@ get '/spectra/querysequence' do
     
     @param_string = "sequence="  + params[:sequence]
     @request_path = request.path
+    
+    @display_string = "Sequence Query: " + params[:sequence]
+    
     haml :spectra
 end
 
@@ -119,5 +105,8 @@ get '/spectra/querypeptide' do
     
     @param_string = "sequence="  + params[:sequence]
     @request_path = request.path
+    
+    @display_string = "Peptide Query: " + params[:sequence]
+    
     haml :spectra
 end
