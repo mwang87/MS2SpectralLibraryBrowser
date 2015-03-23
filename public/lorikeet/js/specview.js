@@ -41,7 +41,8 @@
                 labelImmoniumIons: true,
                 labelPrecursorPeak: true,
                 labelReporters: false,
-				tooltipZIndex: null
+                tooltipZIndex: null,
+                zoomType: "x"  //Default checkboxes for zooming
         };
 			
 	    var options = $.extend(true, {}, defaults, opts); // this is a deep copy
@@ -290,7 +291,7 @@
                     peaks: { show: true, lineWidth: 1, shadowSize: 0},
                     shadowSize: 0
                 },
-                selection: { mode: "x", color: "#F0E68C" },
+                selection: { mode: options.zoomType, color: "#F0E68C" },
                 grid: { show: true,
                         hoverable: true,
                         clickable: false,
@@ -1903,8 +1904,19 @@
 		// reset zoom option
 		myContent += '<nobr> ';
 		myContent += '<span style="width:100%; font-size:8pt; margin-top:5px; color:sienna;">Click and drag in the plot to zoom</span> ';
-		myContent += 'X:<input id="'+getElementId(container, elementIds.zoom_x)+'" type="checkbox" value="X" checked="checked"/> ';
-		myContent += '&nbsp;Y:<input id="'+getElementId(container, elementIds.zoom_y)+'" type="checkbox" value="Y" /> ';
+        if(options.zoomType.indexOf("x") != -1){
+            myContent += 'X:<input id="'+getElementId(container, elementIds.zoom_x)+'" type="checkbox" value="X" checked="checked"/> ';
+        }
+        else{
+            myContent += 'X:<input id="'+getElementId(container, elementIds.zoom_x)+'" type="checkbox" value="X"/> ';
+        }
+        if(options.zoomType.indexOf("y") != -1){
+            myContent += '&nbsp;Y:<input id="'+getElementId(container, elementIds.zoom_y)+'" type="checkbox" value="Y" checked="checked"/> ';
+        }
+        else{
+            myContent += '&nbsp;Y:<input id="'+getElementId(container, elementIds.zoom_y)+'" type="checkbox" value="Y" /> ';
+        }
+        
 		myContent += '&nbsp;<input id="'+getElementId(container, elementIds.resetZoom)+'" type="button" value="Zoom Out" /> ';
 		myContent += '&nbsp;<input id="'+getElementId(container, elementIds.printLink)+'" type="button" value="Print" /> ';
 		myContent += '</nobr> ';
