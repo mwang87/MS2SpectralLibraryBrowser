@@ -65,6 +65,8 @@ get '/spectra/querysequence' do
     
     @library_spectra = Spectrum.all(:offset => (page_number - 1) * PAGINATION_SIZE, :limit => PAGINATION_SIZE, :unmodifiedpeptide.like => query_peptide)
     
+    #results_count = Spectrum.count(:unmodifiedpeptide.like => query_peptide)
+    
     #Determining next and prev page
     if page_number == 1
         @next_page = page_number + 1
@@ -93,6 +95,8 @@ get '/spectra/querypeptide' do
     query_peptide =  "%" + query_peptide + "%"
     
     @library_spectra = Spectrum.all(:offset => (page_number - 1) * PAGINATION_SIZE, :limit => PAGINATION_SIZE, :peptide.like => query_peptide)
+    
+    #results_count = Spectrum.count(:peptide.like => query_peptide)
     
     #Determining next and prev page
     if page_number == 1
