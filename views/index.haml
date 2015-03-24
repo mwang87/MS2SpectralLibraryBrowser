@@ -18,9 +18,22 @@
         %input.form-control{:type => "text", :name => "sequence", :class => "text"}
     %input.btn.btn-default{:type => "submit"}
     
+%form{:action => "/spectra/querysequencesubstring", :method => "get"}
+    .form-group
+        %label{:for => "querysequence"} Query Sequence Substring
+        %input.form-control{:type => "text", :name => "sequence", :class => "text"}
+    %input.btn.btn-default{:type => "submit"}
+    
     
 %form{:action => "/spectra/querypeptide", :method => "get"}
     .form-group
         %label{:for => "querypeptide"} Query Peptide with Mods
+        %input.form-control{:type => "text", :name => "sequence", :class => "text"}
+    %input.btn.btn-default{:type => "submit"}
+    
+    
+%form{:action => "/spectra/querypeptidesubstring", :method => "get"}
+    .form-group
+        %label{:for => "querypeptide"} Query Peptide Substring with Mods
         %input.form-control{:type => "text", :name => "sequence", :class => "text"}
     %input.btn.btn-default{:type => "submit"}
