@@ -17,7 +17,7 @@
     - @library_spectra.each do |spectrum|
         %tr
             %td
-                %a.btn.btn-default.pull-right{:style=>"margin-right: 20px; margin-bottom: 20px", :href => "/spectrum/#{spectrum.id}"} View
+                %a.btn.btn-default.btm-sm.pull-right{:style=>"margin-right: 20px;", :href => "/spectrum/#{spectrum.id}"} View
             %td{:style=>"vertical-align:middle"}= spectrum.unmodifiedpeptide
             %td{:style=>"vertical-align:middle"}= spectrum.peptide
             %td{:style=>"vertical-align:middle"}= spectrum.charge
