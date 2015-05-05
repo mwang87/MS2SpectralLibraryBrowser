@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'json'
-require './settings'
-require './models'
+require '../settings'
+require '../models'
 
 #Parses an MGF spectral library. See Ming about this stuff.
 def parse_mgf_library(library_name, library_db_name)
