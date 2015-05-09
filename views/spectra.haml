@@ -12,13 +12,18 @@
 %form{:action => "/spectra/aggregateview", :method => "get"}
     .form-group
         %label{:for => "name"} Variant
-        %input.form-control{:type => "text", :name => "variant", :class => "text", :value => "#{@query_variant}"}
-        %p
+        %input.form-control{:type => "text", :name => "variant", :class => "text", :value => "#{@query_variant}", :style => "width=100%"}
         %label{:for => "aboutme"} Peptide
         %input.form-control{:type => "text", :name => "peptide", :class => "text", :value => "#{@query_peptide}"}
-        %p
         %label{:for => "aboutme"} Library
         %input.form-control{:type => "text", :name => "library", :class => "text", :value => "#{@query_library}", :class => "library_input"}
+        %br
+        %br
+        %div{:class => "form-inline"}
+            %label{:for => "aboutme"} Precursor MZ
+            %input.form-control{:type => "text", :name => "mz_low", :value => "#{@query_mz_low}"}
+            = "-"
+            %input.form-control{:type => "text", :name => "mz_high", :value => "#{@query_mz_high}"}
     %input.btn.btn-default{:type => "submit", :value => "Update Spectra"} 
 
 

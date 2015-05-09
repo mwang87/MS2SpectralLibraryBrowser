@@ -28,6 +28,8 @@ get '/spectra/aggregateview' do
     @query_variant = params[:variant]
     @query_peptide = params[:peptide]
     @query_library = params[:library]
+    @query_mz_low = params[:mz_low]
+    @query_mz_high = params[:mz_high]
 
     query_parameters = Hash.new
     query_parameters[:offset]  = (page_number - 1) * PAGINATION_SIZE
@@ -54,6 +56,18 @@ get '/spectra/aggregateview' do
         @param_string += "&library=" + @query_library
     end
 
+    if @query_mz_low != nil and @query_mz_low.length > 0
+        query_parameters[:precursor.gt] = @query_mz_low.to_f
+        count_parameters[:precursor.gt] = @query_mz_low.to_f
+        @param_string += "&mz_low=" + @query_mz_low
+    end
+
+    if @query_mz_high != nil and @query_mz_high.length > 0
+        query_parameters[:precursor.lt] = @query_mz_high.to_f
+        count_parameters[:precursor.lt] = @query_mz_high.to_f
+        @param_string += "&mz_high=" + @query_mz_high
+    end
+
     @all_spectra = Spectrum.all(query_parameters)
     @total_count = Spectrum.count(count_parameters)
 
@@ -69,3 +83,4 @@ get '/spectrum/:id' do
     
     haml :spectrum
 end
+
