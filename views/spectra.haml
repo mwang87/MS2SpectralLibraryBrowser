@@ -4,7 +4,23 @@
     %a.btn.btn-default.pull-right{:style=>"margin-right: 10px; margin-bottom: 20px", :href => "#{@request_path}?#{@param_string}&page=#{@previous_page}"} Prev Page
 
 
-= @display_string
+%br
+%div
+    #{@total_count} Results
+%br
+
+%form{:action => "/spectra/aggregateview", :method => "get"}
+    .form-group
+        %label{:for => "name"} Variant
+        %input.form-control{:type => "text", :name => "variant", :class => "text", :value => "#{@query_variant}"}
+        %p
+        %label{:for => "aboutme"} Peptide
+        %input.form-control{:type => "text", :name => "peptide", :class => "text", :value => "#{@query_peptide}"}
+        %p
+        %label{:for => "aboutme"} Library
+        %input.form-control{:type => "text", :name => "library", :class => "text", :value => "#{@query_library}", :class => "library_input"}
+    %input.btn.btn-default{:type => "submit", :value => "Update Spectra"} 
+
 
 %table.table.table-striped.table-condensed.tablesorter
     %thead
@@ -14,7 +30,7 @@
             %th Full Pep
             %th Charge
             %th MZ
-    - @library_spectra.each do |spectrum|
+    - @all_spectra.each do |spectrum|
         %tr
             %td
                 %a.btn.btn-default.btm-sm.pull-right{:style=>"margin-right: 20px;", :href => "/spectrum/#{spectrum.id}"} View
@@ -30,3 +46,12 @@
     %a.btn.btn-default.pull-right{:style=>"margin-right: 20px; margin-bottom: 20px", :href => "#{@request_path}?#{@param_string}&page=#{@next_page}"} Next Page
 - if @previous_page != nil
     %a.btn.btn-default.pull-right{:style=>"margin-right: 10px; margin-bottom: 20px", :href => "#{@request_path}?#{@param_string}&page=#{@previous_page}"} Prev Page
+
+:javascript
+    all_libraries = #{@all_libraries.to_json}
+
+    $(function() {
+        $( ".library_input" ).autocomplete({
+          source: all_libraries
+        });
+    });

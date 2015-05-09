@@ -7,7 +7,7 @@
     - @libraries.each do |library|
         %tr
             %td
-                %a.btn.btn-default.pull-right{:style=>"margin-right: 20px; margin-bottom: 20px", :href => "/spectra/library/#{library.id}"} View Library
+                %a.btn.btn-default.btm-sm.pull-right{:style=>"margin-right: 20px;", :href => "/spectra/aggregateview?library=#{library.name}"} View Library
             %td{:style=>"vertical-align:middle"}= library.name
             %td{:style=>"vertical-align:middle"}= Spectrum.count(:library => library)
 
