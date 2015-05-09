@@ -51,8 +51,6 @@ get '/spectra/aggregateview' do
         @param_string += "&library=" + @query_library
     end
 
-    puts query_parameters
-
     @all_spectra = Spectrum.all(query_parameters)
     @total_count = Spectrum.count(count_parameters)
 

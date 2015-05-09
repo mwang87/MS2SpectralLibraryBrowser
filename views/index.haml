@@ -4,6 +4,11 @@
             %th
             %th Library name
             %th #Spectra
+        %tr
+            %td
+                %a.btn.btn-default.btm-sm.pull-right{:style=>"margin-right: 20px;", :href => "/spectra/aggregateview"} View All Spectra
+            %td{:style=>"vertical-align:middle"}= "All Spectra"
+            %td{:style=>"vertical-align:middle"}= Spectrum.count
     - @libraries.each do |library|
         %tr
             %td
@@ -12,28 +17,3 @@
             %td{:style=>"vertical-align:middle"}= Spectrum.count(:library => library)
 
             
-%form{:action => "/spectra/querysequence", :method => "get"}
-    .form-group
-        %label{:for => "querysequence"} Query Sequence
-        %input.form-control{:type => "text", :name => "sequence", :class => "text"}
-    %input.btn.btn-default{:type => "submit"}
-    
-%form{:action => "/spectra/querysequencesubstring", :method => "get"}
-    .form-group
-        %label{:for => "querysequence"} Query Sequence Substring
-        %input.form-control{:type => "text", :name => "sequence", :class => "text"}
-    %input.btn.btn-default{:type => "submit"}
-    
-    
-%form{:action => "/spectra/querypeptide", :method => "get"}
-    .form-group
-        %label{:for => "querypeptide"} Query Peptide with Mods
-        %input.form-control{:type => "text", :name => "sequence", :class => "text"}
-    %input.btn.btn-default{:type => "submit"}
-    
-    
-%form{:action => "/spectra/querypeptidesubstring", :method => "get"}
-    .form-group
-        %label{:for => "querypeptide"} Query Peptide Substring with Mods
-        %input.form-control{:type => "text", :name => "sequence", :class => "text"}
-    %input.btn.btn-default{:type => "submit"}
