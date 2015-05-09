@@ -41,7 +41,7 @@ get '/spectra/aggregateview' do
     if @query_variant != nil and @query_variant.length > 0
         query_parameters[:peptide.like] = "%" + @query_variant + "%"
         count_parameters[:peptide.like] = "%" + @query_variant + "%"
-        @param_string += "&variant=" + @query_variant
+        @param_string += "&variant=" + CGI.escape(@query_variant)
     end
 
     if @query_peptide != nil and @query_peptide.length > 0
