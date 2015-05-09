@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'json'
-require '../settings'
+require './populate_settings'
 require '../models'
 
 #Parses an MGF spectral library. See Ming about this stuff.
