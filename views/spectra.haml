@@ -32,7 +32,6 @@
         %tr
             %th
             %th Sequence
-            %th Full Pep
             %th Charge
             %th m/z
             %th Library name
@@ -40,7 +39,6 @@
         %tr
             %td
                 %a.btn.btn-default.btm-sm.pull-right{:style=>"margin-right: 20px;", :href => "/spectrum/#{spectrum.id}"} View
-            %td{:style=>"vertical-align:middle"}= spectrum.unmodifiedpeptide
             %td{:style=>"vertical-align:middle"}= spectrum.peptide
             %td{:style=>"vertical-align:middle"}= spectrum.charge
             %td{:style=>"vertical-align:middle"}= spectrum.precursor
