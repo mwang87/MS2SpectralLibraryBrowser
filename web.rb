@@ -36,18 +36,21 @@ get '/spectra/aggregateview' do
 
     @param_string = ""
 
-    if @query_variant != nil and @query_variant.length > 2
+    if @query_variant != nil and @query_variant.length > 0
         query_parameters[:peptide.like] = "%" + @query_variant + "%"
+        count_parameters[:peptide.like] = "%" + @query_variant + "%"
         @param_string += "&variant=" + @query_variant
     end
 
-    if @query_peptide != nil and @query_peptide.length > 2
+    if @query_peptide != nil and @query_peptide.length > 0
        query_parameters[:unmodifiedpeptide.like] = "%" + @query_peptide + "%"
+       count_parameters[:unmodifiedpeptide.like] = "%" + @query_peptide + "%"
        @param_string += "&peptide=" + @query_peptide
     end
  
-    if @query_library != nil and @query_library.length > 2
+    if @query_library != nil and @query_library.length > 0
         query_parameters[:library] = Library.first(:name => @query_library)
+        count_parameters[:library] = Library.first(:name => @query_library)
         @param_string += "&library=" + @query_library
     end
 
