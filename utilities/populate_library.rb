@@ -50,7 +50,12 @@ def parse_mgf_library(library_name, library_db_name)
         else
             if line.length > 5
                 #these are probably peaks
-                splits = line.split("\t")
+                if line.index("\t") != nil
+                    splits = line.split("\t")
+                else
+                    splits = line.split(" ")
+                end
+                
                 peaks_list.push([Float(splits[0]), Float(splits[1])])
             end
         end

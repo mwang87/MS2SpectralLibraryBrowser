@@ -18,6 +18,22 @@ get '/' do
     haml :index
 end
 
+get '/library/delete/:id' do
+    library_db = Library.first(:id => params[:id])
+
+    Spectrum.all(:library => library_db).destroy
+
+    library_name = library_db.name
+
+    if library_db.destroy
+        puts "DELETE SUCCESSFUL"
+    else
+        puts "DELETE BAD"
+    end
+
+    "DELETING " + library_name
+end
+
 
 get '/spectra/aggregateview' do
     page_number, @previous_page, @next_page = page_prev_next_utilties(params)
